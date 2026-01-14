@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Trader Registration</title>
+    <meta name="description"
+        content="Register as a stock market analyst and trader. Share your experience, qualifications, and trading journey.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="8" fill="url(#gradient)" />
+                    <path d="M10 25L15 18L20 22L30 10" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="30" cy="10" r="2" fill="white" />
+                    <defs>
+                        <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#6366f1" />
+                            <stop offset="100%" stop-color="#8b5cf6" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>Trader Registry</span>
+            </div>
+            <div class="header-badge">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path
+                        d="M8 1L10.163 5.38607L15 6.13607L11.5 9.54607L12.326 14.3639L8 12.0861L3.674 14.3639L4.5 9.54607L1 6.13607L5.837 5.38607L8 1Z"
+                        fill="currentColor" />
+                </svg>
+                <span>Professional Registration</span>
+            </div>
+        </header>
+
+        <div class="form-card">
+            <div class="form-header">
+                <h1>Stock Market Trader Registration</h1>
+                <p>Join our community of professional traders and analysts. Share your experience and expertise with us.
+                </p>
+            </div>
+
+            <form id="registrationForm" class="registration-form">
+                <!-- Personal Information Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </div>
+                        <h2>Personal Information</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="fullName" class="required">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="required">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="required">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="address" class="required">Address</label>
+                            <input type="text" id="address" name="address" placeholder="Street address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city" class="required">City</label>
+                            <input type="text" id="city" name="city" placeholder="City" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="state">State/Province</label>
+                            <input type="text" id="state" name="state" placeholder="State or Province">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="zipCode">ZIP/Postal Code</label>
+                            <input type="text" id="zipCode" name="zipCode" placeholder="ZIP or Postal Code">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country" class="required">Country</label>
+                            <input type="text" id="country" name="country" placeholder="Country" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education & Qualifications Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                            </svg>
+                        </div>
+                        <h2>Education & Qualifications</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="highestDegree" class="required">Highest Degree</label>
+                            <select id="highestDegree" name="highestDegree" required>
+                                <option value="">Select your degree</option>
+                                <option value="high-school">High School</option>
+                                <option value="associate">Associate Degree</option>
+                                <option value="bachelor">Bachelor's Degree</option>
+                                <option value="master">Master's Degree</option>
+                                <option value="doctorate">Doctorate (Ph.D.)</option>
+                                <option value="professional">Professional Degree</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fieldOfStudy">Field of Study</label>
+                            <input type="text" id="fieldOfStudy" name="fieldOfStudy"
+                                placeholder="e.g., Finance, Economics, Business">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="university">University/Institution</label>
+                            <input type="text" id="university" name="university" placeholder="Name of your institution">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="graduationYear">Graduation Year</label>
+                            <input type="number" id="graduationYear" name="graduationYear" placeholder="e.g., 2020"
+                                min="1950" max="2030">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="certifications">Professional Certifications</label>
+                            <input type="text" id="certifications" name="certifications"
+                                placeholder="e.g., CFA, CPA, CFP, Series 7 (comma separated)">
+                            <span class="field-hint">List any professional certifications you hold</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trading Experience Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                        </div>
+                        <h2>Trading Experience</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tradingDuration" class="required">How long have you been trading?</label>
+                            <select id="tradingDuration" name="tradingDuration" required>
+                                <option value="">Select duration</option>
+                                <option value="less-1">Less than 1 year</option>
+                                <option value="1-2">1-2 years</option>
+                                <option value="2-5">2-5 years</option>
+                                <option value="5-10">5-10 years</option>
+                                <option value="10-plus">10+ years</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tradingStyle">Primary Trading Style</label>
+                            <select id="tradingStyle" name="tradingStyle">
+                                <option value="">Select style</option>
+                                <option value="day-trading">Day Trading</option>
+                                <option value="swing-trading">Swing Trading</option>
+                                <option value="position-trading">Position Trading</option>
+                                <option value="scalping">Scalping</option>
+                                <option value="long-term">Long-term Investing</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="markets">Markets You Trade In</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="markets" value="stocks">
+                                    <span>Stocks/Equities</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="markets" value="options">
+                                    <span>Options</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="markets" value="futures">
+                                    <span>Futures</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="markets" value="forex">
+                                    <span>Forex</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="markets" value="crypto">
+                                    <span>Cryptocurrency</span>
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="markets" value="commodities">
+                                    <span>Commodities</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="specializations">Areas of Specialization</label>
+                            <input type="text" id="specializations" name="specializations"
+                                placeholder="e.g., Technical Analysis, Fundamental Analysis, Algorithmic Trading">
+                            <span class="field-hint">What are your key areas of expertise?</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Background Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                            </svg>
+                        </div>
+                        <h2>Professional Background</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="currentOccupation">Current Occupation</label>
+                            <input type="text" id="currentOccupation" name="currentOccupation"
+                                placeholder="Your current job title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Company/Firm</label>
+                            <input type="text" id="company" name="company" placeholder="Your current employer">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="yearsOfExperience">Total Years of Professional Experience</label>
+                            <select id="yearsOfExperience" name="yearsOfExperience">
+                                <option value="">Select experience</option>
+                                <option value="0-2">0-2 years</option>
+                                <option value="2-5">2-5 years</option>
+                                <option value="5-10">5-10 years</option>
+                                <option value="10-15">10-15 years</option>
+                                <option value="15-plus">15+ years</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="linkedIn">LinkedIn Profile</label>
+                            <input type="url" id="linkedIn" name="linkedIn"
+                                placeholder="https://linkedin.com/in/yourprofile">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About You Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                        </div>
+                        <h2>Tell Us About Yourself</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="aboutYourself" class="required">About Yourself (150 words)</label>
+                            <textarea id="aboutYourself" name="aboutYourself" rows="8"
+                                placeholder="Share your trading journey, investment philosophy, key achievements, and what drives your passion for the stock market. This is your opportunity to tell your story..."
+                                required maxlength="1500"></textarea>
+                            <div class="word-counter">
+                                <span id="wordCount">0</span> / 150 words
+                            </div>
+                            <span class="field-hint">Tell us about your background, trading journey, philosophy,
+                                achievements, and what makes you unique as a trader</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Information Section -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                        </div>
+                        <h2>Additional Information</h2>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="goals">What are your goals in joining our community?</label>
+                            <textarea id="goals" name="goals" rows="4"
+                                placeholder="Share what you hope to achieve by joining our trader community..."></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="references">Professional References</label>
+                            <textarea id="references" name="references" rows="3"
+                                placeholder="Include name, title, company, and contact information (optional)"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Consent Section -->
+                <div class="form-section">
+                    <div class="consent-group">
+                        <label class="checkbox-label consent-label">
+                            <input type="checkbox" name="consent" id="consent" required>
+                            <span>I confirm that all information provided is accurate and complete. I understand that
+                                this information will be used for professional networking and verification
+                                purposes.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 10l-9-7v4c-7.7 0-11 4.2-11 10 0-2.8 3.3-5 11-5v4l9-6z"></path>
+                        </svg>
+                        <span>Submit Registration</span>
+                    </button>
+                    <button type="reset" class="btn-secondary">
+                        <span>Clear Form</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 Trader Registry. All information is confidential and secure.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
