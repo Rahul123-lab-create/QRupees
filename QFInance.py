@@ -291,6 +291,15 @@ with st.sidebar:
         page = st.selectbox("Select Page", pages)
     else:
         page = st.selectbox("Select Page", ["Home", "Login", "Trader Registration"])
+        
+    st.divider()
+    # Storage Status Indicator
+    if db.mode == "gsheets":
+        st.caption("🟢 Storage: Cloud (Persistent)")
+    else:
+        st.caption("🟡 Storage: Local (Temporary)")
+        st.caption("Data may reset on restart.")
+
 
 # Home Page (Landing)
 if page == "Home":
