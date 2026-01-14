@@ -522,9 +522,12 @@ if page == "Logout":
 # Login Page
 if page == "Login" and not st.session_state.authenticated:
     st.subheader("Login to Access Features")
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-    if st.button("Login"):
+    with st.form(key="login_form"):
+        email = st.text_input("Email")
+        password = st.text_input("Password", type="password")
+        submit_login = st.form_submit_button("Login")
+    
+    if submit_login:
         user = db.get_user(email)
         if user and check_password(user[1], password):
             # user[0] is id, user[2] is is_admin
