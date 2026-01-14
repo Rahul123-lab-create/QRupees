@@ -21,8 +21,39 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # Config
 st.set_page_config(page_title="QRupees Dashboard", page_icon="📊", layout="wide")
 
+# Initialize Theme
+if 'theme' not in st.session_state:
+    st.session_state.theme = "Dark"
+
+# Inject CSS based on Theme
+if st.session_state.theme == "Light":
+    st.markdown("""
+    <style>
+        /* Light Mode Overrides */
+        [data-testid="stAppViewContainer"] {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        [data-testid="stSidebar"] {
+            background-color: #f0f2f6;
+        }
+        [data-testid="stHeader"] {
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .stMarkdown, .stText, h1, h2, h3, h4, h5, h6 {
+            color: #000000 !important;
+        }
+        /* Buttons */
+        .stButton button {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #cccccc;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Inject CSS for webpage-like styling (if you have Style.css, otherwise skip or create an empty file)
-if os.path.exists("Style.css"):
+if os.path.exists("Style.css") and st.session_state.theme == "Dark":
     with open("Style.css", "r") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
@@ -753,8 +784,19 @@ if st.session_state.authenticated:
 
     elif page == "Settings":
         st.subheader("App Settings")
-        theme = st.selectbox("Theme", ["Dark", "Light"])
-        # In prod, apply theme via session state or CSS
+        
+        # Theme Toggle
+        current_index = 0 if st.session_state.theme == "Dark" else 1
+        selected_theme = st.selectbox(
+            "Appearance Mode", 
+            ["Dark", "Light"], 
+            index=current_index
+        )
+        
+        if selected_theme != st.session_state.theme:
+            st.session_state.theme = selected_theme
+            st.toast(f"Switched to {selected_theme} Mode")
+            st.rerun()
 
 # Footer
 st.markdown("---")
