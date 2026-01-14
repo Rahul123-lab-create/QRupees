@@ -318,7 +318,8 @@ def render_footer():
     st.divider()
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
-        st.image("QRupees footer.png", width=100) if os.path.exists("QRupees footer.png") else None 
+        if os.path.exists("QRupees footer.png"):
+            st.image("QRupees footer.png", width=100) 
         st.markdown("<div style='text-align: center; color: grey;'><b>QRupees — Building Nepal’s Quantitative Market Infrastructure</b></div>", unsafe_allow_html=True)
         st.caption("© 2026 QRupees. Focused on Nepse Excellence.")
     
