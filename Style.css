@@ -44,18 +44,23 @@
     --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.1);
 }
 
-/* Reset & Base - Optimized for performance */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* Base Styling - Restoring Streamlit's layout physics while keeping transitions */
+body {
     transition-property: color, background-color, border-color;
-    transition-duration: var(--transition-base);
+    transition-duration: 0.3s;
 }
 
-body {
-    /* as before, added will-change for animations */
-    will-change: background-color, color;
+/* Main Container Padding for Responsiveness */
+[data-testid="stAppViewContainer"] {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 5rem;
+}
+
+/* Ensure Home Page content doesn't collide with Sidebar */
+.main .block-container {
+    padding-top: 3rem;
+    max-width: 1200px;
 }
 
 /* Animated Background - Reduced blur for better perf */
@@ -107,8 +112,25 @@ progress::-webkit-progress-value {
 }
 
 /* Responsive - Improved media queries */
+@media (max-width: 1024px) {
+
+    /* Tablet specific spacing */
+    [data-testid="stSidebar"] {
+        min-width: 300px;
+    }
+
+    .main .block-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
-    /* ... as before, added more breakpoints if needed */
+
+    /* Mobile specific adjustments */
+    [data-testid="stAppViewContainer"] {
+        padding-top: 1rem;
+    }
 }
 
 /* Custom Scrollbar - Optimized */

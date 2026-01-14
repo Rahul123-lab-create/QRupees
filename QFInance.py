@@ -33,6 +33,11 @@ if st.session_state.theme == "Light":
         [data-testid="stAppViewContainer"] {
             background-color: #ffffff;
             color: #000000;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+        .main .block-container {
+            padding-top: 3rem !important;
         }
         [data-testid="stSidebar"] {
             background-color: #f0f2f6;
