@@ -12,6 +12,7 @@ import os
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+import re
 import urllib3
 
 # Disable SSL warnings
@@ -605,11 +606,11 @@ elif page == "Trader Registration":
         # Consent
         consent = st.checkbox("I confirm that all information provided is accurate and complete. I understand that this information will be used for professional networking and verification purposes. *")
 
-        # Validation
-        valid_email = re.match(r"[^@]+@[^@]+\.[^@]+", email)
-        valid_phone = len(phone) >= 10 and phone.isdigit()
-        
         if st.form_submit_button("Submit Registration"):
+            # Validation
+            valid_email = re.match(r"[^@]+@[^@]+\.[^@]+", email)
+            valid_phone = len(phone) >= 10 and phone.isdigit()
+            
             if not full_name or not email or not phone:
                 st.error("Please fill in all required fields (Name, Email, Phone).")
             elif not valid_email:
