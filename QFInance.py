@@ -305,13 +305,7 @@ with st.sidebar:
             "Trader Registration"
         ])
         
-    st.divider()
-    # Storage Status Indicator
-    if db.mode == "gsheets":
-        st.caption("🟢 Storage: Cloud (Persistent)")
-    else:
-        st.caption("🟡 Storage: Local (Temporary)")
-        st.caption("Data may reset on restart.")
+
 
 # Dynamic Footer Function
 def render_footer():
