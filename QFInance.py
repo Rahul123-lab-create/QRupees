@@ -320,7 +320,7 @@ def render_footer():
     with col2:
         st.image("QRupees footer.png", width=100) if os.path.exists("QRupees footer.png") else None 
         st.markdown("<div style='text-align: center; color: grey;'><b>QRupees — Building Nepal’s Quantitative Market Infrastructure</b></div>", unsafe_allow_html=True)
-        st.caption("© 2026 QRupees. Powered by xAI. Focused on Nepse Excellence.")
+        st.caption("© 2026 QRupees. Focused on Nepse Excellence.")
     
     # Facebook Link in center or right
     st.markdown(
