@@ -290,7 +290,17 @@ with st.sidebar:
             pages.insert(4, "Admin Approvals")
         page = st.selectbox("Select Page", pages)
     else:
-        page = st.selectbox("Select Page", ["Home", "Login", "Trader Registration"])
+        # Public Pages
+        page = st.selectbox("Select Page", [
+            "Home", 
+            "Features", 
+            "Live Data", 
+            "Pricing", 
+            "About", 
+            "Regulatory & Trust", 
+            "Login", 
+            "Trader Registration"
+        ])
         
     st.divider()
     # Storage Status Indicator
@@ -300,129 +310,178 @@ with st.sidebar:
         st.caption("🟡 Storage: Local (Temporary)")
         st.caption("Data may reset on restart.")
 
+# Dynamic Footer Function
+def render_footer():
+    st.divider()
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        st.image("QRupees footer.png", width=100) if os.path.exists("QRupees footer.png") else None 
+        st.markdown("<div style='text-align: center; color: grey;'><b>QRupees — Building Nepal’s Quantitative Market Infrastructure</b></div>", unsafe_allow_html=True)
+        st.caption("© 2026 QRupees. Powered by xAI. Focused on Nepse Excellence.")
+    
+    # Facebook Link in center or right
+    st.markdown(
+        """<div style='text-align: center;'><a href="https://www.facebook.com/profile.php?id=61586221963929" target="_blank" style="text-decoration: none; color: #1877F2; font-size: 24px;"><br>🔵 Follow us on Facebook</a></div>""", 
+        unsafe_allow_html=True
+    )  
+
+# Render Footer on all pages
+render_footer()
 
 # Home Page (Landing)
 if page == "Home":
     st.image("Cover Photo.png", use_container_width=True)
     
     st.markdown("""
-    <div style='text-align: center; padding-bottom: 20px;'>
+    <div style='text-align: center; padding: 20px 0;'>
         <h1>QRupees</h1>
-        <h3><i>Redefining Nepal’s Capital Market Analysis</i></h3>
+        <h3><b>Nepal’s Quantitative Market Intelligence Platform</b></h3>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("""
-    **QRupees** is a premium quantitative finance platform purpose-built for the Nepalese stock market (**NEPSE**). 
-    It transforms raw, fragmented market data into **clear, actionable intelligence**, empowering both retail and institutional traders in Nepal with analytical capabilities comparable to global trading terminals.
+    st.info("""
+    **Turn raw NEPSE data into clear, mathematical trading insights.**  
+    *Built for Nepal. Designed for serious traders.*
+    """)
+    
+    col_cta1, col_cta2 = st.columns(2)
+    with col_cta1:
+        if st.button("🚀 Explore Dashboard", use_container_width=True):
+            st.session_state.page_selection = "Login"
+            st.warning("Please login to access the Dashboard.")
+    with col_cta2:
+        if st.button("📊 View Live NEPSE Data", use_container_width=True):
+            st.toast("Redirecting to Live Data...")
+            # Ideally switch page, but showing info for now as simple nav is sidebar based
+            st.info("Select 'Live Data' from the sidebar to view.")
 
-    By blending the analytical rigor of modern quantitative finance with the resilience and identity of the Himalayas, QRupees delivers a secure, fast, and deeply insightful trading environment—designed for serious market participants.
+    st.divider()
+
+    # Why QRupees Section
+    st.subheader("Why QRupees?")
+    st.write("NEPSE is a unique market—defined by sector cycles, liquidity gaps, regulatory constraints, and sharp volatility.")
+    st.write("**QRupees is engineered specifically for NEPSE, not adapted from foreign markets.**")
+    
+    c1, c2, c3 = st.columns(3)
+    c1.success("✅ **Built exclusively for Nepal**")
+    c2.success("✅ **Data-driven, not rumor-driven**")
+    c3.success("✅ **Precision over noise**")
+
+# Features Page
+elif page == "Features":
+    st.title("Platform Features")
+    st.image("Cover Photo.png", use_container_width=True)
+    
+    st.subheader("1. Fundamental Analysis Engine")
+    st.caption("Evaluate companies beyond price movements.")
+    st.markdown("""
+    *   **Company Health Scoring**: Using P/E, ROE, Debt-to-Equity to assess value.
+    *   **Verified Trader Registry**: Research profiles & documented investment theses.
+    *   **Live Sectoral Analysis**: Real-time capital-flow tracking across NEPSE sectors.
     """)
     
     st.divider()
-
-    # Why QRupees Section - Highlighted
-    with st.container():
-        st.subheader("Why QRupees?")
-        st.info("""
-        **NEPSE is a unique market**—characterized by sector-driven cycles, liquidity pockets, regulatory constraints, and sharp volatility. 
-        QRupees is engineered specifically for these realities, not adapted from foreign markets.
-        
-        *   ✅ **Built exclusively for NEPSE**
-        *   ✅ **Data-driven, not rumor-driven**
-        *   ✅ **Designed for precision, not noise**
-        """)
-
-    st.divider()
     
-    st.subheader("Core Capabilities")
-    st.write("QRupees operates on a **dual-engine analytical architecture**, combining long-term valuation intelligence with short-term market timing tools.")
-    
-    col_fund, col_tech = st.columns(2, gap="medium")
-    
-    with col_fund:
-        st.markdown("### 1. Fundamental Analysis Engine")
-        st.caption("Look under the hood of listed companies.")
-        
-        st.markdown("""
-        **• Company Health Scoring**  
-        Automated analysis of key financial ratios (*P/E, ROE, Debt-to-Equity*) and growth metrics to identify fundamentally strong stocks.
-
-        **• Trader Registry & Research Profiles**  
-        A secure registry where analysts and traders can maintain verified profiles, document investment theses, and track historical decisions.
-
-        **• Sectoral Capital Flow Analysis**  
-        Live comparison across NEPSE sectors—Banking, Hydro, Microfinance, Insurance, Manufacturing—to identify where capital is concentrating.
-        """)
-
-    with col_tech:
-        st.markdown("### 2. Technical Analysis Terminal")
-        st.caption("For active traders who demand clarity and speed.")
-        
-        st.markdown("""
-        **• Quantitative Charting Engine**  
-        Advanced price-action charts integrated with volume, trend, and momentum indicators optimized for NEPSE trading behavior.
-
-        **• Algorithmic Watchlists**  
-        Real-time tracking of selected stocks such as *NTC, NABIL, UPPER, HDL,* with instant delta and momentum updates.
-
-        **• Secure Strategy Environment**  
-        User watchlists, strategies, and sessions are protected using **SHA-256 encryption**, ensuring data integrity and privacy.
-        """)
-
-    st.divider()
-
-    # Live NEPSE Data Integration
-    with st.container():
-        st.subheader("Live NEPSE Data Integration")
-        st.write("At the core of QRupees lies a **NEPSE-specific live data engine**.")
-        
-        d_col1, d_col2, d_col3, d_col4 = st.columns(4)
-        d_col1.metric("Real-Time", "Prices", delta="Live Feed")
-        d_col2.metric("Latency", "Low", delta="Fast")
-        d_col3.metric("Validation", "100%", delta="Verified")
-        d_col4.metric("Caching", "Smart", delta="Optimized")
-        
-        st.success("""
-        This proprietary data pipeline ensures QRupees users receive **accurate, timely, and reliable market information**—without dependence on third-party portals or delayed feeds.
-        """)
-
-    st.divider()
-
-    # The QRupees Experience
-    st.subheader("The QRupees Experience")
+    st.subheader("2. Technical Analysis Terminal")
+    st.caption("A modern trading terminal for active NEPSE traders.")
     st.markdown("""
-    QRupees is designed as a **modern financial terminal**, not a cluttered web portal.
-
-    *   🌑 **Dark-Mode First Design**: A low-strain, professional interface that keeps traders focused during long market sessions.
-    *   🏔️ **Himalayan Identity Branding**: High-impact visuals inspired by the Himalayas—symbolizing strength, clarity, and long-term vision.
-    *   📱 **Mobile-Ready & Responsive**: Seamless performance across desktop, tablet, and mobile—whether you’re in Kathmandu, Pokhara, or beyond.
+    *   **Advanced Quantitative Charting**: Deep price action history.
+    *   **Algorithmic Watchlists**: Real-time updates on key stocks.
+    *   **Secure Environment**: Encrypted strategy planning.
     """)
 
-    st.divider()
-
-    # Future Outlook
-    with st.expander("🚀 Future Outlook: Nepal’s Next-Gen Infrastructure", expanded=True):
-        st.markdown("""
-        As NEPSE continues its transition toward greater digital participation and regulatory maturity, **QRupees is positioned to become Nepal’s primary quantitative finance node**.
-
-        From top-down fundamental screening to bottom-up technical execution, QRupees provides the mathematical and analytical edge required to compete in today’s evolving market.
-
-        **QRupees is not just a platform — it is Nepal’s next-generation market intelligence infrastructure.**
-        """)
+# Live Data Page
+elif page == "Live Data":
+    st.title("Live NEPSE Market Data")
+    st.info("**QRupees operates a NEPSE-specific data engine built for speed and accuracy.**")
     
-    st.divider()
-    
-    # Call to Action
-    st.markdown("<h3 style='text-align: center;'>Get Started</h3>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
-    with col1:
-        if st.button("🚀 Login to Dashboard", use_container_width=True):
-            st.session_state.page_selection = "Login" 
-            st.info("Please select 'Login' from the sidebar to continue.")
-    with col2:
-        if st.button("📝 Register as Trader", use_container_width=True):
-            st.info("Please select 'Trader Registration' from the sidebar to create an account.")
+    col1.metric("Updates", "Real-Time", "Tick-by-Tick")
+    col2.metric("Latency", "Zero", "Direct Feed")
+    
+    st.markdown("""
+    ### System Capabilities
+    *   **Low-latency data validation**
+    *   **Intelligent caching for fast performance**
+    *   **Clean feeds powering charts, alerts, and indicators**
+    
+    > *No third-party delays. No clutter. Just data.*
+    """)
+    
+    # Show glimpse of data if possible
+    try:
+        df_today = get_today_prices()
+        if not df_today.empty:
+            st.dataframe(df_today.head(10), use_container_width=True)
+        else:
+            st.warning("Market is closed or data unavailable right now.")
+    except:
+        st.error("Live feed disconnected.")
+
+# Pricing Page
+elif page == "Pricing":
+    st.title("Pricing Plans")
+    st.write("Choose the right level of intelligence for your trading journey.")
+    
+    p_col1, p_col2 = st.columns(2)
+    p_col3, p_col4 = st.columns(2)
+    
+    with p_col1:
+        st.markdown("### 🟢 Free — Market Viewer")
+        st.caption("For students and beginners.")
+        st.markdown("- Limited live data\n- Basic charts\n- Educational indicators")
+        st.button("Current Plan", disabled=True)
+        
+    with p_col2:
+        st.markdown("### 🔵 Pro — Active Trader")
+        st.caption("For serious retail traders.")
+        st.markdown("- Real-time NEPSE data\n- Advanced indicators\n- Algorithmic watchlists\n- Sector dashboards")
+        st.markdown("**NPR 999–1,499 / month**")
+        st.button("Upgrade to Pro")
+
+    st.divider()
+
+    with p_col3:
+        st.markdown("### 🟣 Quant — Research")
+        st.caption("For analysts and high-commitment traders.")
+        st.markdown("- Tick replay & backtesting\n- NEPSE-optimized indicators\n- Strategy analytics\n- Data export & API access")
+        st.markdown("**NPR 3,000–5,000 / month**")
+        st.button("Contact Sales", key="quant")
+
+    with p_col4:
+        st.markdown("### ⚫ Institutional")
+        st.caption("For funds and research firms.")
+        st.markdown("- Dedicated data nodes\n- Custom analytics\n- Audit-ready reports\n- Priority support")
+        st.markdown("**Custom Pricing**")
+        st.button("Contact Sales", key="inst")
+
+# About Page
+elif page == "About":
+    st.title("What is QRupees?")
+    st.image("Cover Photo.png", use_container_width=True)
+    st.markdown("""
+    **QRupees is not a trading app.**
+    
+    It is a **quantitative market intelligence platform** built to bring discipline, transparency, and analytical depth to Nepal’s capital markets.
+
+    Our mission is to empower traders and analysts with professional-grade tools—while remaining regulation-aware and ethically designed.
+    """)
+
+# Regulatory Page
+elif page == "Regulatory & Trust":
+    st.title("Regulatory & Trust")
+    st.warning("Regulation-First Design")
+    
+    st.markdown("""
+    QRupees is designed as:
+
+    *   ✅ **Market analytics & decision-support software**
+    *   ✅ **Read-only NEPSE data platform**
+    *   ✅ **Educational and research-focused**
+    *   ❌ **No auto-trading or execution**
+
+    > *QRupees does **not** provide buy/sell recommendations or guarantee profits.*
+    """)
 
 # Logout
 if page == "Logout":
