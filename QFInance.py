@@ -304,69 +304,121 @@ with st.sidebar:
 # Home Page (Landing)
 if page == "Home":
     st.image("Cover Photo.png", use_container_width=True)
-    st.divider()
     
     st.markdown("""
-    # **QRupees: Redefining Nepal's Capital Market Analysis**
+    <div style='text-align: center; padding-bottom: 20px;'>
+        <h1>QRupees</h1>
+        <h3><i>Redefining Nepal’s Capital Market Analysis</i></h3>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    **QRupees** is a premium quantitative finance platform purpose-built for the Nepalese stock market (**NEPSE**). 
+    It transforms raw, fragmented market data into **clear, actionable intelligence**, empowering both retail and institutional traders in Nepal with analytical capabilities comparable to global trading terminals.
 
-    **QRupees** is a cutting-edge quantitative finance platform specifically engineered for the Nepalese stock market (**NEPSE**). It bridges the gap between raw market data and actionable intelligence, providing retail and institutional traders in Nepal with tools that were previously only available in global high-frequency trading hubs.
-
-    By merging the rugged spirit of the Himalayas with sophisticated financial technology, QRupees offers a "Premium" environment where security, speed, and analytical depth converge.
-
-    ---
-
-    ### **Core Capabilities**
-
-    The platform is built on a dual-engine architecture designed to handle the unique volatility and trends of NEPSE stocks.
-
-    #### **1. Fundamental Analysis Engine**
-
-    QRupees goes beyond simple price tracking. It helps investors look under the hood of listed companies:
-
-    * **Company Health Scoring:** Automated extraction of key financial ratios (P/E, Debt-to-Equity, ROE) to assess value.
-    * **Registry & Profile Management:** A secure "Trader Registry" where analysts can document their investment theses and maintain professional profiles.
-    * **Sectoral Performance:** Real-time comparisons across NEPSE sectors (Banking, Hydro, Microfinance, etc.) to identify where capital is flowing.
-
-    #### **2. Technical Analysis Terminal**
-
-    For the active trader, the terminal provides a high-fidelity visual experience:
-
-    * **Quantitative Charting:** Integration of advanced price action visuals and volume indicators.
-    * **Algorithmic Watchlists:** Customizable tracking of preferred stocks like NTC, NABIL, or upper-tamakoshi with real-time delta updates.
-    * **Secure Execution Environment:** Built with a focus on data integrity, ensuring that user strategies and watchlists are protected via SHA-256 encryption and secure session handling.
-
-    ---
-
-    ### **The User Experience (UX)**
-
-    QRupees is designed with a **"Modern Terminal"** aesthetic. Unlike traditional, cluttered financial portals, it prioritizes:
-
-    * **Dark-Mode Efficiency:** A sleek, low-strain interface (as seen in your `Style.css`) that keeps the focus on the numbers.
-    * **Interactive Hero Branding:** A high-impact landing experience featuring Himalayan imagery, grounding the technology in its local context.
-    * **Mobile-Ready Responsiveness:** Ensuring that traders from Kathmandu to Pokhara can monitor their portfolios on the go.
-
-    ---
-
-    ### **Security & Technical Architecture**
-
-    | Feature | Implementation |
-    | --- | --- |
-    | **Language** | Python (Streamlit Engine) |
-    | **Data Integrity** | JSON-based persistence for user data |
-    | **Encryption** | SHA-256 password hashing for trader security |
-    | **Visuals** | Plotly for interactive, high-speed data rendering |
-
-    ---
-
-    ### **Future Outlook**
-
-    As NEPSE evolves with new regulations and increased digital participation, **QRupees** is positioned to be the primary "Quant Node" for Nepalese investors. Whether you are performing a top-down fundamental sweep or a bottom-up technical scalp, QRupees provides the mathematical edge required in today's market.
+    By blending the analytical rigor of modern quantitative finance with the resilience and identity of the Himalayas, QRupees delivers a secure, fast, and deeply insightful trading environment—designed for serious market participants.
     """)
     
+    st.divider()
+
+    # Why QRupees Section - Highlighted
+    with st.container():
+        st.subheader("Why QRupees?")
+        st.info("""
+        **NEPSE is a unique market**—characterized by sector-driven cycles, liquidity pockets, regulatory constraints, and sharp volatility. 
+        QRupees is engineered specifically for these realities, not adapted from foreign markets.
+        
+        *   ✅ **Built exclusively for NEPSE**
+        *   ✅ **Data-driven, not rumor-driven**
+        *   ✅ **Designed for precision, not noise**
+        """)
+
+    st.divider()
+    
+    st.subheader("Core Capabilities")
+    st.write("QRupees operates on a **dual-engine analytical architecture**, combining long-term valuation intelligence with short-term market timing tools.")
+    
+    col_fund, col_tech = st.columns(2, gap="medium")
+    
+    with col_fund:
+        st.markdown("### 1. Fundamental Analysis Engine")
+        st.caption("Look under the hood of listed companies.")
+        
+        st.markdown("""
+        **• Company Health Scoring**  
+        Automated analysis of key financial ratios (*P/E, ROE, Debt-to-Equity*) and growth metrics to identify fundamentally strong stocks.
+
+        **• Trader Registry & Research Profiles**  
+        A secure registry where analysts and traders can maintain verified profiles, document investment theses, and track historical decisions.
+
+        **• Sectoral Capital Flow Analysis**  
+        Live comparison across NEPSE sectors—Banking, Hydro, Microfinance, Insurance, Manufacturing—to identify where capital is concentrating.
+        """)
+
+    with col_tech:
+        st.markdown("### 2. Technical Analysis Terminal")
+        st.caption("For active traders who demand clarity and speed.")
+        
+        st.markdown("""
+        **• Quantitative Charting Engine**  
+        Advanced price-action charts integrated with volume, trend, and momentum indicators optimized for NEPSE trading behavior.
+
+        **• Algorithmic Watchlists**  
+        Real-time tracking of selected stocks such as *NTC, NABIL, UPPER, HDL,* with instant delta and momentum updates.
+
+        **• Secure Strategy Environment**  
+        User watchlists, strategies, and sessions are protected using **SHA-256 encryption**, ensuring data integrity and privacy.
+        """)
+
+    st.divider()
+
+    # Live NEPSE Data Integration
+    with st.container():
+        st.subheader("Live NEPSE Data Integration")
+        st.write("At the core of QRupees lies a **NEPSE-specific live data engine**.")
+        
+        d_col1, d_col2, d_col3, d_col4 = st.columns(4)
+        d_col1.metric("Real-Time", "Prices", delta="Live Feed")
+        d_col2.metric("Latency", "Low", delta="Fast")
+        d_col3.metric("Validation", "100%", delta="Verified")
+        d_col4.metric("Caching", "Smart", delta="Optimized")
+        
+        st.success("""
+        This proprietary data pipeline ensures QRupees users receive **accurate, timely, and reliable market information**—without dependence on third-party portals or delayed feeds.
+        """)
+
+    st.divider()
+
+    # The QRupees Experience
+    st.subheader("The QRupees Experience")
+    st.markdown("""
+    QRupees is designed as a **modern financial terminal**, not a cluttered web portal.
+
+    *   🌑 **Dark-Mode First Design**: A low-strain, professional interface that keeps traders focused during long market sessions.
+    *   🏔️ **Himalayan Identity Branding**: High-impact visuals inspired by the Himalayas—symbolizing strength, clarity, and long-term vision.
+    *   📱 **Mobile-Ready & Responsive**: Seamless performance across desktop, tablet, and mobile—whether you’re in Kathmandu, Pokhara, or beyond.
+    """)
+
+    st.divider()
+
+    # Future Outlook
+    with st.expander("🚀 Future Outlook: Nepal’s Next-Gen Infrastructure", expanded=True):
+        st.markdown("""
+        As NEPSE continues its transition toward greater digital participation and regulatory maturity, **QRupees is positioned to become Nepal’s primary quantitative finance node**.
+
+        From top-down fundamental screening to bottom-up technical execution, QRupees provides the mathematical and analytical edge required to compete in today’s evolving market.
+
+        **QRupees is not just a platform — it is Nepal’s next-generation market intelligence infrastructure.**
+        """)
+    
+    st.divider()
+    
+    # Call to Action
+    st.markdown("<h3 style='text-align: center;'>Get Started</h3>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         if st.button("🚀 Login to Dashboard", use_container_width=True):
-            st.session_state.page_selection = "Login" # We can't easily force state change without rerun, guiding user to sidebar is standard in simple streamlit
+            st.session_state.page_selection = "Login" 
             st.info("Please select 'Login' from the sidebar to continue.")
     with col2:
         if st.button("📝 Register as Trader", use_container_width=True):
