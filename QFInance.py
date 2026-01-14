@@ -233,20 +233,22 @@ def get_nepse_companies():
         st.error(f"Error fetching companies: {e}")
         return pd.DataFrame()
 
+# Helper: Load Data (Cached)
+@st.cache_data(ttl=60, show_spinner=False)
 def get_today_prices():
-    url = "https://www.nepalstock.com/todaysprice/export"
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-    }
+    url = "https://www.nepalstock.com/today-price"
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
     try:
-        response = requests.get(url, headers=headers, verify=False, timeout=10)
+        response = requests.get(url, verify=False, headers=headers, timeout=10)
         response.raise_for_status()
-        from io import StringIO
-        df = pd.read_csv(StringIO(response.text))
+        html = response.content
+        df = pd.read_html(html)[0]
+        # Basic cleaning
+        df = df.dropna(how='all')
         return df
     except Exception as e:
-        st.error(f"Error fetching prices: {e}")
-        return pd.DataFrame()
+        # st.error(f"Data Fetch Error: {e}") # Suppress for cleaner UI, handle in caller
+        return pd.DataFrame() # Return empty on failure
 
 def get_historical_data(stock_id, start_date, end_date):
     url = f"https://www.nepalstock.com/company/transaction-history?stockId={stock_id}&startDate={start_date}&endDate={end_date}&_limit=5000"
@@ -395,28 +397,58 @@ elif page == "Live Data":
     st.title("Live NEPSE Market Data")
     st.info("**QRupees operates a NEPSE-specific data engine built for speed and accuracy.**")
     
-    col1, col2 = st.columns(2)
-    col1.metric("Updates", "Real-Time", "Tick-by-Tick")
-    col2.metric("Latency", "Zero", "Direct Feed")
+    # Refresh Button
+    if st.button("🔄 Refresh Feed"):
+        get_today_prices.clear()
+        st.rerun()
     
-    st.markdown("""
-    ### System Capabilities
-    *   **Low-latency data validation**
-    *   **Intelligent caching for fast performance**
-    *   **Clean feeds powering charts, alerts, and indicators**
-    
-    > *No third-party delays. No clutter. Just data.*
-    """)
-    
-    # Show glimpse of data if possible
     try:
-        df_today = get_today_prices()
-        if not df_today.empty:
-            st.dataframe(df_today.head(10), use_container_width=True)
+        with st.spinner("Connecting to NEPSE Feed..."):
+            df = get_today_prices()
+            
+        if not df.empty:
+            # Flexible Column Handling for Metrics
+            cols = df.columns.tolist()
+            # Try to find Turnover/Volume columns by keyword
+            turnover_col = next((c for c in cols if "amount" in c.lower() or "turnover" in c.lower()), None)
+            vol_col = next((c for c in cols if "quantity" in c.lower() or "volume" in c.lower() or "shares" in c.lower()), None)
+            
+            # Metrics Dashboard
+            m1, m2, m3, m4 = st.columns(4)
+            m1.metric("Market Status", "🟢 Open" if len(df) > 10 else "🔴 Closed")
+            m2.metric("Listed Scrips", len(df))
+            
+            if turnover_col:
+                # Clean turnover data (remove commas, convert to float)
+                try:
+                    total_turnover = df[turnover_col].astype(str).str.replace(',', '').astype(float).sum()
+                    m3.metric("Total Turnover", f"Rs. {total_turnover:,.0f}")
+                except:
+                    m3.metric("Total Turnover", "N/A")
+            
+            if vol_col:
+                try:
+                    total_vol = df[vol_col].astype(str).str.replace(',', '').astype(float).sum()
+                    m4.metric("Total Volume", f"{total_vol:,.0f} Shares")
+                except:
+                    m4.metric("Total Volume", "N/A")
+
+            st.markdown("### 📊 Market Movers")
+            # Show top 5 by turnover if possible
+            if turnover_col:
+                top_active = df.sort_values(by=turnover_col, ascending=False).head(5)
+                st.caption("Top Stocks by Turnover")
+                st.dataframe(top_active, use_container_width=True, hide_index=True)
+            else:
+                st.dataframe(df.head(20), use_container_width=True)
+                
         else:
-            st.warning("Market is closed or data unavailable right now.")
-    except:
-        st.error("Live feed disconnected.")
+            st.warning("Market data currently unavailable. The market might be closed.")
+            st.button("Retry Connection", on_click=lambda: get_today_prices.clear())
+            
+    except Exception as e:
+        st.error(f"Live feed disconnected: {e}")
+        st.button("Retry Connection", on_click=lambda: get_today_prices.clear())
 
 # Pricing Page
 elif page == "Pricing":
@@ -573,12 +605,19 @@ elif page == "Trader Registration":
         # Consent
         consent = st.checkbox("I confirm that all information provided is accurate and complete. I understand that this information will be used for professional networking and verification purposes. *")
 
-        submit_button = st.form_submit_button("Submit Registration")
-
-        if submit_button:
-            # Basic validation (relaxed for demo; add more as needed)
-            if not all([full_name, email, password, phone, address, city, country, highest_degree != "Select your degree", trading_duration != "Select duration", about_yourself, consent]):
-                st.error("Please fill all required fields (*) and provide consent.")
+        # Validation
+        valid_email = re.match(r"[^@]+@[^@]+\.[^@]+", email)
+        valid_phone = len(phone) >= 10 and phone.isdigit()
+        
+        if st.form_submit_button("Submit Registration"):
+            if not full_name or not email or not phone:
+                st.error("Please fill in all required fields (Name, Email, Phone).")
+            elif not valid_email:
+                st.error("Invalid Email format.")
+            elif not valid_phone:
+                st.error("Invalid Phone number (must be at least 10 digits).")
+            elif not consent:
+                st.error("You must agree to the terms.")
             elif len(about_yourself.split()) > 150:
                 st.error("About Yourself section exceeds 150 words.")
             else:
