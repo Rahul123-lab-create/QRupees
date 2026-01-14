@@ -5,3 +5,5 @@ requests
 beautifulsoup4
 bcrypt
 urllib3
+gspread
+oauth2client
